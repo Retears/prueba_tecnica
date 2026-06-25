@@ -15,10 +15,6 @@ export default function PageSalas() {
         try {
             const response = await fetch("/api/pagos", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ amount: 1999 }), // monto en centavos
             });
             const data = await response.json();
             if (data.url) {
