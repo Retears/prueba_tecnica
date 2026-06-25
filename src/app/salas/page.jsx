@@ -12,21 +12,14 @@ export default function PageSalas() {
 
     const handleBuy = async () => {
         setLoading(true);
-        try {
+        
             const response = await fetch("/api/pagos", {
                 method: "POST",
             });
             const data = await response.json();
-            if (data.url) {
+            
                 window.location.href = data.url; // redirige a Stripe Checkout
-            } else {
-                console.error("Error al crear la sesión de pago");
-                setLoading(false);
-            }
-        } catch (error) {
-            console.error("Error en la solicitud de pago:", error);
-            setLoading(false);
-        }
+
     };
     return (
         <div className="flex flex-1 items-center justify-center ">
