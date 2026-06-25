@@ -21,21 +21,22 @@ export async function POST(req) {
 
 
 
-  if (evento.type === 'checkout.session.completed') {
-    
-  }
+  switch (evento.type) {
+    case "checkout.session.completed": {
+      const session = evento.data.object;
+      console.log("Pago exitoso para la sesión:", session.id);
 
-  if (evento.type === 'checkout.session.expired') {
-    // El usuario no pagó en 30 minutos → cancelamos el pago
+      const customerEmail = session.customer_details?.email || session.customer_email;
+      const amountTotal = session.amount_total ? (session.amount_total / 100).toFixed(2) : null;
+      const currency = session.currency ? session.currency.toUpperCase() : 'EUR';
+
+      console.log(`Detalles del pago: Email del cliente: ${customerEmail}, Monto total: ${amountTotal} ${currency}`);
+      break;
 
 
-      if (error) {
-      console.error('Error cancelando pago expirado:', error)
-      return NextResponse.json({ error: error.message }, { status: 500 })
     }
-  
+    default:
+      console.log('evento no manejado:', evento.type);
   }
-
-  // Siempre respondemos 200 para que Stripe sepa que recibimos el aviso
-  return NextResponse.json({ received: true })
+  return NextResponse.json({ received: true });
 }
