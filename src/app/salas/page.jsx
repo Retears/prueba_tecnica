@@ -9,6 +9,7 @@ export default function PageSalas() {
     ]
     const [loading, setLoading] = useState(false);
 
+
     const handleBuy = async () => {
         setLoading(true);
         try {
@@ -17,16 +18,7 @@ export default function PageSalas() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    tipo : 'sala',
-                    id : 1,
-                    items:[{
-                        nombre : 'sala',
-                        precio: 100,
-                        cantidad:1,
-                }]
-                    
-                }) // monto en centavos
+                body: JSON.stringify({ amount: 1999 }), // monto en centavos
             });
             const data = await response.json();
             if (data.url) {
@@ -40,7 +32,6 @@ export default function PageSalas() {
             setLoading(false);
         }
     };
-
     return (
         <div className="flex flex-1 items-center justify-center ">
             <section className="gap-6 md:grid-cols-2 lg:grid-cols-4 grid">
@@ -70,4 +61,6 @@ export default function PageSalas() {
             </section>
         </div>
     )
-}
+};
+
+
