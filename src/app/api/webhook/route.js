@@ -24,19 +24,11 @@ export async function POST(req) {
   switch (evento.type) {
     case "checkout.session.completed": {
       const session = evento.data.object;
+
       console.log("Pago exitoso para la sesión:", session.id);
 
-      const customerEmail = session.customer_details?.email || session.customer_email;
-      const amountTotal = session.amount_total ? (session.amount_total / 100).toFixed(2) : null;
-      const currency = session.currency ? session.currency.toUpperCase() : 'EUR';
-
-      console.log(`Detalles del pago: Email del cliente: ${customerEmail}, Monto total: ${amountTotal} ${currency}`);
       break;
-
-
     }
-    default:
-      console.log('evento no manejado:', evento.type);
   }
   return NextResponse.json({ received: true });
 }

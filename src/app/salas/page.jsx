@@ -1,55 +1,49 @@
-"use client"
-import RoomCard from "@/components/RoomCard";
+"use client";
+
 import { useState } from "react";
 
-export default function PageSalas() {
-    const salas = [
-        { id: 1, sala: 'roja' },
-        { id: 2, sala: 'morada' },
-    ]
-    const [loading, setLoading] = useState(false);
+export default function Home() {
+  const [loading, setLoading] = useState(false);
 
+  const handlePay = async () => {
+    try {
+      setLoading(true);
 
-    const handleBuy = async () => {
-        setLoading(true);
-        
-            const response = await fetch("/api/pagos", {
-                method: "POST",
-            });
-            const data = await response.json();
-            
-                window.location.href = data.url; // redirige a Stripe Checkout
+      const res = await fetch("/api/pagos", {
+        method: "POST",
+      });
 
-    };
-    return (
-        <div className="flex flex-1 items-center justify-center ">
-            <section className="gap-6 md:grid-cols-2 lg:grid-cols-4 grid">
-                <article>
-                    <div className="">Bienvenido ROOM SCAPE</div>
-                </article>
+      const data = await res.json();
 
-                <article>
-                    {
-                        salas.map(s => {
-                            <ul key={s.id}>
-                                <li className="text-black">{s.sala}</li>
-                            </ul>
-                        })
-                    }
-                    <h1 className="text-4xl font-bold mt-4">SALA 1</h1>
-                    <p className="text-2xl mt-2">$19.99</p>
-                    <button
-                        onClick={handleBuy}
-                        disabled={loading}
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    >
-                        {loading ? "Procesando..." : "Comprar"}
+      if (data.url) {
+        window.location.href = data.url; // 👉 redirige a Stripe
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                    </button>
-                </article>
-            </section>
-        </div>
-    )
-};
+  return (
+    <div style={{ textAlign: "center", marginTop: "100px" }}>
+      <h1>🧪 Simulación de pago Stripe</h1>
+
+      <button
+        onClick={handlePay}
+        disabled={loading}
+        style={{
+          padding: "12px 20px",
+          background: "black",
+          color: "white",
+          marginTop: "20px",
+        }}
+      >
+        {loading ? "Procesando..." : "Pagar 19.99€"}
+      </button>
+    </div>
+  );
+}
+
 
 
