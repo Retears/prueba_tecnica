@@ -47,7 +47,7 @@ export default function PageSalas() {
                             </ul>
                         })
                     }
-                    <h1 className="text-4xl font-bold mt-4">lentes</h1>
+                    <h1 className="text-4xl font-bold mt-4">SALA 1</h1>
                     <p className="text-2xl mt-2">$19.99</p>
                     <button
                         onClick={handleBuy}

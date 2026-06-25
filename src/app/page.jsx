@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
 
 
-  
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-gray-100">
       <main className="min-h-screen flex items-center justify-center ">
@@ -20,7 +20,7 @@ export default function Home() {
 
           <div className="flex justify-center gap-4">
             <Link href="/salas" className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
-              login
+              SALAS
             </Link>
 
             <button className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
